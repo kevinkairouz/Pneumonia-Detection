@@ -8,17 +8,32 @@ transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor(), t
 training_data = torchvision.datasets.ImageFolder(root="archive/chest_xray/train", transform=transform)
 testing_data = torchvision.datasets.ImageFolder(root="archive/chest_xray/test",transform=transform)  
 
-print(training_data[0][0].shape)
+print(training_data[0][0].shape) 
+
+dummy = torch.randn([3,200,200])
 
 class CNN(torch.nn.Module): 
 
     def __init__(self):
         super().__init__() 
-        self.nn = torch.nn.Sequential(
+        self.nn = torch.nn.Sequential( 
+            torch.nn.Conv2d(3, 30, 3), 
+            torch.nn.ReLU(), 
+            torch.nn.Conv2d(30, 100, 3), 
+            torch.nn.MaxPool2d(2,2), 
+            torch.nn.Flatten()
 
             
 
 
 
         ) 
+    
+    def forward(self, data): 
+        return self.nn(data) 
+    
 
+cnn = CNN() 
+
+print(cnn.nn(dummy).shape) 
+print(100 * 9604)
