@@ -18,7 +18,7 @@ class CNN(torch.nn.Module):
         super().__init__() 
         self.nn = torch.nn.Sequential( 
             torch.nn.Conv2d(3, 30, 3), 
-            torch.nn.ReLU(), 
+            torch.nn.Sigmoid(), 
             torch.nn.Conv2d(30, 100, 3), 
             torch.nn.MaxPool2d(2,2), 
             torch.nn.Flatten()
@@ -36,4 +36,9 @@ class CNN(torch.nn.Module):
 cnn = CNN() 
 
 print(cnn.nn(dummy).shape) 
-print(100 * 9604)
+print(100 * 9604) 
+
+#use argsmax in this because it is binary classification 
+# use sigmoid function at the end 
+# 2 classes phemounia or normal 
+
