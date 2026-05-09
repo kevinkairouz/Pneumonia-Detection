@@ -30,6 +30,9 @@ class CNN(torch.nn.Module):
             torch.nn.ReLU(), 
             torch.nn.Linear(100, 2)
         ) 
+        self.optimizer = torch.optim.Adam(self.nn.parameters(), lr=0.001) 
+        self.loss_func = torch.nn.CrossEntropyLoss() 
+        
     
     def forward(self, data): 
         return self.nn(data) 
@@ -37,8 +40,7 @@ class CNN(torch.nn.Module):
 
 cnn = CNN() 
 
-print(cnn.nn(dummy).shape) 
-print(100 * 9604) 
+
 
 #use argsmax in this because it is binary classification 
 # use sigmoid function at the end 
