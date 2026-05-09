@@ -1,7 +1,7 @@
 import torch 
 import torchvision 
 
-device = torch.device(type="cuda")
+# device = torch.device(type="cuda")
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor(), torchvision.transforms.Resize((200,200))])
 
 
@@ -21,12 +21,14 @@ class CNN(torch.nn.Module):
             torch.nn.Sigmoid(), 
             torch.nn.Conv2d(30, 100, 3), 
             torch.nn.MaxPool2d(2,2), 
-            torch.nn.Flatten()
-
-            
-
-
-
+            torch.nn.Flatten(), 
+            torch.nn.Linear(960400, 10000), 
+            torch.nn.ReLU(), 
+            torch.nn.Linear(10000, 1000), 
+            torch.nn.ReLU(), 
+            torch.nn.Linear(1000, 100), 
+            torch.nn.ReLU(), 
+            torch.nn.Linear(100, 2)
         ) 
     
     def forward(self, data): 
