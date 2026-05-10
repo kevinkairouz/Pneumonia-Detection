@@ -1,5 +1,7 @@
 import torch 
 import torchvision 
+import random 
+
 
 # device = torch.device(type="cuda")
 transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor(), torchvision.transforms.Resize((200,200))])
@@ -8,9 +10,13 @@ transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor(), t
 training_data = torchvision.datasets.ImageFolder(root="archive/chest_xray/train", transform=transform)
 testing_data = torchvision.datasets.ImageFolder(root="archive/chest_xray/test",transform=transform)  
 
-print(training_data[0][0].shape) 
+training_dataLoader = torch.utils.data.DataLoader(training_data) 
+testing_dataLoader = torch.utils.data.DataLoader(testing_data)
 
-dummy = torch.randn([3,200,200])
+
+# print(training_data[0][0].shape) 
+
+# dummy = torch.randn([3,200,200])
 
 class CNN(torch.nn.Module): 
 
@@ -33,12 +39,29 @@ class CNN(torch.nn.Module):
         self.optimizer = torch.optim.Adam(self.nn.parameters(), lr=0.001) 
         self.loss_func = torch.nn.CrossEntropyLoss() 
         
-    
+    def fit(self, trainingData): 
+        num_epochs = 10 
+        for epoch in range(0, num_epochs): 
+            for xbatch, ybatch in trainingData: 
+                self.optimizer.zero_grad() 
+                prediction = self.nn(xbatch) 
+                loss = self.loss_func(prediction, ybatch) 
+                self.optimizer.step() 
+        print("Training Finished")
+
+
+
     def forward(self, data): 
         return self.nn(data) 
+
+
+    def printRandomNumberInRange(self, firstNum, secondNum): #test function
+
+        return random.randint(firstNum, secondNum)
     
 
-cnn = CNN() 
+cnn = CNN()  
+
 
 
 
