@@ -68,12 +68,6 @@ class CNN(torch.nn.Module):
         return ((numbercorrect/attempts) * 100)
         
 
-
-
-
-    def printRandomNumberInRange(self, firstNum, secondNum): #test function
-
-        return random.randint(firstNum, secondNum)
     
 
 cnn = CNN()  
