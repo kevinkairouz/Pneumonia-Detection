@@ -54,7 +54,19 @@ class CNN(torch.nn.Module):
             pred = self.nn(data)
 
     def forward(self, data): 
-        return self.nn(data) 
+        return self.nn(data)  
+    
+    def score(self, trainingData): 
+        numbercorrect = 0 
+        attempts = 0 
+        for xbatch, ybatch in trainingData: 
+            attempts += 1 
+            with torch.no_grad(): 
+                prediction = self.nn(xbatch) 
+                if prediction.item() == ybatch: 
+                    numbercorrect += 1  
+        return ((numbercorrect/attempts) * 100)
+        
 
 
 
