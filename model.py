@@ -59,6 +59,7 @@ class CNN(torch.nn.Module):
         return self.nn(data)  
     
     def score(self, trainingData): 
+        #use sigmoid function in order to get highest prob 
         numbercorrect = 0 
         attempts = 0 
         for xbatch, ybatch in trainingData: 
