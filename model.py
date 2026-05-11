@@ -28,18 +28,17 @@ class CNN(torch.nn.Module):
             torch.nn.Conv2d(30, 100, 3), 
             torch.nn.MaxPool2d(2,2), 
             torch.nn.Flatten(), 
-            torch.nn.Linear(960400, 10000), 
+            torch.nn.Linear(960400, 100), 
             torch.nn.ReLU(), 
-            torch.nn.Linear(10000, 1000), 
+            torch.nn.Linear(100, 10), 
             torch.nn.ReLU(), 
-            torch.nn.Linear(1000, 100), 
-            torch.nn.ReLU(), 
-            torch.nn.Linear(100, 2)
+            torch.nn.Linear(10, 2), 
         ) 
         self.optimizer = torch.optim.Adam(self.nn.parameters(), lr=0.001) 
         self.loss_func = torch.nn.CrossEntropyLoss() 
         
-    def fit(self, trainingData): 
+    def fit(self, trainingData):  
+        self.nn.train() 
         num_epochs = 10 
         for epoch in range(0, num_epochs): 
             for xbatch, ybatch in trainingData: 
@@ -48,6 +47,11 @@ class CNN(torch.nn.Module):
                 loss = self.loss_func(prediction, ybatch) 
                 self.optimizer.step() 
         print("Training Finished")
+
+    def predict(self, data): 
+        self.nn.eval() 
+        with torch.no_grad():
+            pred = self.nn(data)
 
 
 
