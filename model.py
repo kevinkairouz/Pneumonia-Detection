@@ -53,10 +53,10 @@ class CNN(torch.nn.Module):
         with torch.no_grad():
             pred = self.nn(data)
 
-
-
     def forward(self, data): 
         return self.nn(data) 
+
+
 
 
     def printRandomNumberInRange(self, firstNum, secondNum): #test function
