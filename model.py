@@ -51,7 +51,9 @@ class CNN(torch.nn.Module):
     def predict(self, data): 
         self.nn.eval() 
         with torch.no_grad():
-            pred = self.nn(data)
+            pred = self.nn(data) 
+            pos = torch.argmax(pred) 
+            return pred[pos]
 
     def forward(self, data): 
         return self.nn(data)  
