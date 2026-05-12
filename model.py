@@ -26,7 +26,7 @@ class CNN(torch.nn.Module):
         super().__init__() 
         self.nn = torch.nn.Sequential( 
             torch.nn.Conv2d(3, 30, 3), 
-            torch.nn.Sigmoid(), 
+            torch.nn.ReLU(), 
             torch.nn.Conv2d(30, 100, 3), 
             torch.nn.MaxPool2d(2,2), 
             torch.nn.Flatten(), 
@@ -47,7 +47,8 @@ class CNN(torch.nn.Module):
                 prediction = self.nn(xbatch) 
                 loss = self.loss_func(prediction, ybatch) 
                 loss.backward()
-                self.optimizer.step() 
+                self.optimizer.step()
+                print(f"loss {loss}, epoch {epoch}")
         print("Training Finished")
 
 
